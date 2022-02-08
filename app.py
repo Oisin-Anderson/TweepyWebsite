@@ -1,4 +1,3 @@
-import tweepy
 from flask import Flask, render_template, request
 import os
 import tweepy as tp
@@ -19,10 +18,10 @@ consumer_secret = '8URqQMLRulnBZ2zBg6INwgBcSy1n2nmqcivQrLevgOXLBuVoLd'
 access_token = '1440589430016729096-4foIMmmDWo3HlPX4F118EgV3MP43bL'
 access_token_secret = 'nCdz73VOiNPH1V4QVZsnwvRdlOMxAFahvUMQWSuqdNcC0'
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth = tp.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
-api = tweepy.API(auth)
+api = tp.API(auth)
 
 
 vpositive_tweets = []
