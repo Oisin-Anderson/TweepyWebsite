@@ -1,0 +1,175 @@
+{% extends 'partial/layout.html' %}
+
+{% block content %}
+
+<figure class="highcharts-figure">
+    <div id="vaderSentiment"></div>
+</figure>
+<figure class="highcharts-figure">
+    <div id="textblobSentiment"></div>
+</figure>
+<figure class="highcharts-figure">
+    <div id="bubbleLocation"></div>
+</figure>
+
+    #Vader Sentiment Piechart
+      <script language = "JavaScript">
+         $(document).ready(function() {
+
+             // Create the chart
+             Highcharts.chart('vaderSentiment', {
+                 chart: {
+                     plotBackgroundColor: null,
+                     plotBorderWidth: null,
+                     plotShadow: false,
+                     type: 'pie'
+                 },
+                 title: {
+                     text: 'Vader Sentiment Analysis of tweets'
+                 },
+                 tooltip: {
+                     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                 },
+                 accessibility: {
+                     point: {
+                         valueSuffix: '%'
+                     }
+                 },
+                 plotOptions: {
+                     pie: {
+                         allowPointSelect: true,
+                         cursor: 'pointer',
+                         dataLabels: {
+                             enabled: true,
+                             format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                         }
+                     }
+                 },
+                 series: [{
+                     name: 'Sentiment',
+                     colorByPoint: true,
+                     data: [{
+                         name: 'Positive',
+                         y: {{ vpositive }},
+                         sliced: true,
+                         selected: true
+                     }, {
+                         name: 'Neutral',
+                         y: {{ vneutral }}
+                     }, {
+                         name: 'Negative',
+                         y: {{ vnegative }}
+                     }]
+                 }]
+             });
+         })
+      </script>
+
+    #TextBlob Sentiment Piechart
+      <script language = "JavaScript">
+         $(document).ready(function() {
+
+             // Create the chart
+             Highcharts.chart('textblobSentiment', {
+                 chart: {
+                     plotBackgroundColor: null,
+                     plotBorderWidth: null,
+                     plotShadow: false,
+                     type: 'pie'
+                 },
+                 title: {
+                     text: 'TextBlob Sentiment Analysis of tweets'
+                 },
+                 tooltip: {
+                     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                 },
+                 accessibility: {
+                     point: {
+                         valueSuffix: '%'
+                     }
+                 },
+                 plotOptions: {
+                     pie: {
+                         allowPointSelect: true,
+                         cursor: 'pointer',
+                         dataLabels: {
+                             enabled: true,
+                             format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                         }
+                     }
+                 },
+                 series: [{
+                     name: 'Sentiment',
+                     colorByPoint: true,
+                     data: [{
+                         name: 'Positive',
+                         y: {{ tpositive }},
+                         sliced: true,
+                         selected: true
+                     }, {
+                         name: 'Neutral',
+                         y: {{ tneutral }}
+                     }, {
+                         name: 'Negative',
+                         y: {{ tnegative }}
+                     }]
+                 }]
+             });
+         })
+      </script>
+
+    #Bubble Location Chart
+    <script language = "JavaScript">
+        $(document).ready(function() {
+            Highcharts.chart('bubbleLocation', {
+                chart: {
+                    type: 'packedbubble',
+                    height: '30%'
+                },
+                title: {
+                    text: 'Twitter User Locations'
+                },
+                tooltip: {
+                    useHTML: true,
+                    pointFormat: '<b>{point.name}:</b> {point.value}'
+                },
+                plotOptions: {
+                    packedbubble: {
+                        minSize: '30%',
+                        maxSize: '120%',
+                        zMin: 0,
+                        zMax: 1000,
+                        layoutAlgorithm: {
+                            splitSeries: false,
+                            gravitationalConstant: 0.02
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}',
+                            filter: {
+                                property: 'y',
+                                operator: '>',
+                                value: 250
+                            },
+                            style: {
+                                color: 'black',
+                                textOutline: 'none',
+                                fontWeight: 'normal'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    data: [
+                        {
+                            name: {{ data.name }},
+                            location: {{ data.location }}
+                        }
+                    ]
+                    }
+                ]
+            });
+        })
+    </script>
+
+{% endblock %}

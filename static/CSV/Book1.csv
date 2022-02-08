@@ -1,0 +1,16 @@
+﻿positive,18-25,1000
+positive,26-35,520
+positive,36-45,800
+positive,45+,83
+neutral,18-25,50
+neutral,26-35,75
+neutral,36-45,82
+neutral,45+,103
+negative,18-25,5
+negative,26-35,1000
+negative,36-45,500
+negative,45+,125
+supernegative,18-25,5
+supernegative,26-35,1000
+supernegative,36-45,500
+supernegative,45+,125

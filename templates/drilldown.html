@@ -1,0 +1,160 @@
+{% extends 'partial/layout.html' %}
+
+{% block content %}
+
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+</figure>
+
+    #DrillDown Barchart
+      <script language = "JavaScript">
+         $(document).ready(function() {
+
+             Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Vader Senntiment Drilldown'
+                },
+                subtitle: {
+                    text: 'Click the columns to view more data'
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    type: 'Sentiment'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Amount of tweets'
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b>'
+                },
+
+                series: [
+                    {
+                        name: "Sentiment",
+                        colorByPoint: true,
+                        data: [
+                            {
+                                name: "Positive",
+                                y: {{ pos }},
+                                drilldown: "Positive"
+                            },
+                            {
+                                name: "Neutral",
+                                y: {{ neu }},
+                                drilldown: "Neutral"
+                            },
+                            {
+                                name: "Negative",
+                                y: {{ neg }},
+                                drilldown: "Negative"
+                            }
+                        ]
+                    }
+                ],
+                drilldown: {
+                    breadcrumbs: {
+                        position: {
+                            align: 'right'
+                        }
+                    },
+                    series: [
+                        {
+                            name: "Positive",
+                            id: "Positive",
+                            data: [
+                                [
+                                    '{{ posname1 }}',
+                                    {{ posfol1 }}
+                                ],
+                                [
+                                    '{{ posname2 }}',
+                                    {{ posfol2 }}
+                                ],
+                                [
+                                    '{{ posname3 }}',
+                                    {{ posfol3 }}
+                                ],
+                                [
+                                    '{{ posname4 }}',
+                                    {{ posfol4 }}
+                                ]
+                            ]
+                        },
+                        {
+                            name: "Neutral",
+                            id: "Neutral",
+                            data: [
+                                [
+                                    '{{ neuname1 }}',
+                                    {{ neufol1 }}
+                                ],
+                                [
+                                    '{{ neuname2 }}',
+                                    {{ neufol2 }}
+                                ],
+                                [
+                                    '{{ neuname3 }}',
+                                    {{ neufol3 }}
+                                ],
+                                [
+                                    '{{ neuname4 }}',
+                                    {{ neufol4 }}
+                                ]
+                            ]
+                        },
+                        {
+                            name: "Negative",
+                            id: "Negative",
+                            data: [
+                                [
+                                    '{{ negname1 }}',
+                                    {{ negfol1 }}
+                                ],
+                                [
+                                    '{{ negname2 }}',
+                                    {{ negfol2 }}
+                                ],
+                                [
+                                    '{{ negname3 }}',
+                                    {{ negfol3 }}
+                                ],
+                                [
+                                    '{{ negname4 }}',
+                                    {{ negfol4 }}
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            });
+
+
+         })
+      </script>
+
+{% endblock %}
